@@ -9,7 +9,7 @@ void main()
 {
 	int i;
 	signal(SIGALRM,handler);
-	alarm(5);
+	alarm(5);	//5S
 	for(i=1;i<7;i++)
 	{
 		printf("sleep %d ...\n",i);
