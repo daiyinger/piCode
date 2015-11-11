@@ -7,4 +7,4 @@ python /home/pi/code/boot/FindPiServer.py -d &
 #/home/pi/putty_upload/tcp_server_d &
 #/home/pi/ftp_cmd/run_cmd1.sh >/home/pi/logs/out.file 2>&1 &
 #python /home/pi/UDPServer.py -d
-
+mono  ../files/nat123linux.sh  service
