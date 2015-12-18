@@ -1,3 +1,10 @@
 .*
 Gizwits-GAgent-master
 camera/Makefile
+code/PythonCode/modules
+*.h264
+*.jpg
+*.yuv
+*.264
+*.mp4
+*.avi
