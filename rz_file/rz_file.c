@@ -24,7 +24,7 @@ char buf[BUFLEN];
 
 int main(int argc, char *argv[])
 {
-
+	const char *recv_path_const = "/home/root/";
     struct rt_vbus_request req;
     req.name      = "vecho";
     req.prio      = 20;
@@ -34,6 +34,11 @@ int main(int argc, char *argv[])
     req.recv_wm.high = 1000;
     req.post_wm.low  = 500;
     req.post_wm.high = 1000;
+
+	if(access(recv_path_const, 0) == 0)
+	{
+		chdir(recv_path_const);
+	}
 
     /*int rwfd = ioctl(ctlfd, VBUS_IOCREQ, &req);
     if (rwfd < 0)
@@ -57,15 +62,17 @@ int main(int argc, char *argv[])
 		}
 
 		FILE *fp;  
-		int len = read(rwfd, buf, 4);
+		int len = read(rwfd, buf, 4);	//read file name length
 		if(len > 0)
 		{
 			len = *((int *)buf);
 			//printf("file name len:%d\n", len);
 			len =  read(rwfd, buf, len);
 			buf[len] = '\0';
-			printf("received file :%s\n", buf);
-			if((fp=fopen(buf,"wb"))==NULL)  
+			char *p = strrchr(buf, '/');
+			p += 1; //point after last /
+			printf("received file :%s\n", p);
+			if((fp=fopen(p,"wb"))==NULL)  
 			{
 				printf("open write file error\n");
 				close(rwfd);
@@ -79,7 +86,7 @@ int main(int argc, char *argv[])
 		}
 		while(1)
 		{
-			/* 从设备端口/dev/rtvbus读取反序字符串 */
+			/* 从设备端口/dev/rtvbus读取文件内容 */
 			int len = read(rwfd, buf, sizeof(buf)-1);
 			if(len > 0)
 			{
